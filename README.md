@@ -1,0 +1,1 @@
+这是一个简单的在vscode中使用vsconde-nvim插件的小Demo（在windows环境下）
