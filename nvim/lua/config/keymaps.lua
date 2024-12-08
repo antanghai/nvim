@@ -1,43 +1,20 @@
-local vscode = require("vscode-neovim")
+-- local vscode = require("vscode-neovim")
+local vscode = require('vscode')
 
+-- 显示 vscode 通知
 vim.notify = vscode.notify
+-- 使用 VSCode 剪贴板 API 的剪贴板提供程序
 vim.g.clipboard = vim.g.vscode_clipboard
 
 
-vim.g.mapleader = " "
-vim.g.maplocalleader = "\\"
 
 
--- 鼠标支持
-vim.o.mouse = "a"
-vim.opt.hlsearch = false
-vim.opt.syntax = "enable"
-vim.opt.iskeyword:append("-")
-vim.opt.showcmd= true
--- smaller updatetime
--- vim.o.updatetime = 300
--- 设置 timeoutlen 为等待键盘快捷键连击时间500毫秒，可根据需要设置
-vim.o.timeoutlen = 500
---  搜索大小写不敏感，除非包含大写
-vim.o.ignorecase = true
-vim.o.smartcase = true
--- vim.opt.jumpoptions = "stack"
--- vim.opt.sidescrolloff = 8
-
--- set clipboard to global clipboard
-vim.opt.clipboard:append("unnamedplus")
-vim.cmd.syntax("off")
-
--- vim.keymap.set("v", "im", "aBV")
--- vim.keymap.set("v", "am", "aBVj")
--- vim.keymap.set("v", "iM", "aBVok")
--- vim.keymap.set("v", "aM", "aBVjok")
--- vim.keymap.set("o", "im", function () vim.cmd("normal vaBV") end)
--- vim.keymap.set("o", "am", function () vim.cmd("normal vaBVj") end)
--- vim.keymap.set("o", "iM", function () vim.cmd("normal vaBVok") end)
--- vim.keymap.set("o", "aM", function () vim.cmd("normal vaBVjok") end)
 
 
+
+
+-- 这个代码定义了一个局部函数 vscode_action(cmd)，它返回一个新的函数，这个函数在被调用时会执行 vscode.action(cmd)。
+-- 这个结构通常用于创建命令的快捷方式，以便在处理 VS Code 的 API 时更方便地触发某些命令。
 local function vscode_action(cmd)
   return function()
     vscode.action(cmd)
@@ -57,11 +34,7 @@ vim.keymap.set('n', "<leader>W", vscode_action("workbench.action.closeOtherEdito
 -- Search: clear highlight
 -- WARN: conflict with <Esc> of vscode-multi-cursor in operation.lua, set <esc> there
 -- vim.keymap.set("n", "<Esc>", "<Cmd>nohlsearch|diffupdate|normal! <C-L><CR><Esc>", { desc = "Clear Highlight" })
-vim.keymap.set("n", "<Leader>h", function () vim.cmd("noh") end)
 
-vim.keymap.set({ 'n', 'v' }, '<leader>h', '^', { silent = true })
-vim.keymap.set({ 'n', 'v' }, '<leader>l', 'g_', { silent = true })
-vim.keymap.set({ 'n', 'v' }, '<leader>a', '%', { remap = true, silent = true })
 -- vim.keymap.set(
 --   "n",
 --   "<Leader>bh",
@@ -123,27 +96,7 @@ vim.keymap.set("n", "[d", vscode_action("editor.action.marker.prev"), { desc = "
 
 -- 
 --
--- Operation: delete or change without register
--- vim.keymap.set({ "n", "x" }, "<M-d>", '"_d', { desc = "Delete Without Register" })
--- vim.keymap.set({ "n", "x" }, "<M-c>", '"_c', { desc = "Change Without Register" })
 
--- Operation: insert mode
-  
-
--- Operation: better indenting
-vim.keymap.set("n", "<", "<<", { desc = "Deindent" })
-vim.keymap.set("n", ">", ">>", { desc = "Indent" })
-vim.keymap.set("x", "<", "<gv", { desc = "Deindent" })
-vim.keymap.set("x", ">", ">gv", { desc = "Indent" })
-
--- Operation: add empty lines
--- Operation: yank and paste
--- Operation: undo
--- Operation: repeat
--- vim.keymap.del("x", "mi")
--- vim.keymap.del("x", "mI")
--- vim.keymap.del("x", "ma")
--- vim.keymap.del("x", "mA")
 
 
 

@@ -22,20 +22,46 @@ vim.opt.rtp:prepend(lazypath)
 
 
 -- Load user configs before load plugins
-if vim.g.vscode then
-  require("config.vscode.settings")
-else
+require("config.globals")
+require("config.options")
+require("config.autocmds")
 
+-- 存储关于neovim调用vscode的快捷键
+if vim.g.vscode then
+  require("config.keymaps")
+else
 end
 
+local plugins = "plugins"
+
+local opts = {
+	defaults = {
+		lazy = true,
+	},
+	install = {
+		-- colorscheme = { "nightfox" },
+	},
+	rtp = {
+		disabled_plugins = {
+			"gzip",
+			"matchit",
+			"matchparen",
+			"netrw",
+			"netrwPlugin",
+			"tarPlugin",
+			"tohtml",
+			"tutor",
+			"zipPlugin",
+		},
+	},
+	change_detection = {
+		notify = false,
+	},
+}
+
+
+
+
 -- Setup lazy.nvim
-require("lazy").setup({
-  spec = {
-    -- import your plugins
-    -- { "LazyVim/LazyVim", import = "lazyvim.plugins" },
-    -- { import = "lazyvim.plugins.extras.vscode" },
-    -- { import = "plugins" },
-    { import = "plugins.extras",    cond = true },
-  },
-})
+require("lazy").setup(plugins, opts)
 

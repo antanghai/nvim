@@ -1,9 +1,9 @@
 
 if vim.g.vscode then
   -- VSCode Neovim
-  require("config.lazy")
+  require("config")
 
 else
   -- Ordinary Neovim
-  require("config.lazy")
+  require("config")
 end
